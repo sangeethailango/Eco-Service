@@ -1,0 +1,14 @@
+<.table id="community" rows={@communities}>
+<:col :let={community} label="Community Name"> <%= community.name%> </:col>
+<:col :let={community} label="Location Area Zone"> <%= community.location_area_zone%> </:col>
+<:col :let={community} label="Edit"> 
+    <.link phx-click="delete" phx-value-id={community.id}> <span class="text-blue-500">Delete</span> </.link>    
+</:col>
+</.table>
+ 
+<%= if @offset != 0 do %>  
+<.link phx-click="prev" ><p class="text-blue-500">Prev</p></.link>
+<% end%>
+<%= if @all_records - @offset > @limit do %>
+<.link phx-click="next" ><p class="text-blue-500">Next</p></.link>
+<% end %>
