@@ -1,10 +1,13 @@
 <h1 class="font-bold text-lg text-center">List of communities</h1>
 <.table id="community" rows={@communities}>
-<:col :let={community} label="Community Name"> <%= community.name%> </:col>
-<:col :let={community} label="Location Area Zone"> <%= community.location_area_zone%> </:col>
-<:col :let={community} label="Delete"> 
-    <.link phx-click="delete" phx-value-id={community.id} > <span class="text-blue-500">Delete</span> </.link>    
-</:col>
+  <:col :let={community} label="Community Name"> <%= community.name%> </:col>
+  <:col :let={community} label="Location Area Zone"> <%= community.location_area_zone%> </:col>
+  <:col :let={community} label="Delete"> 
+      <.link phx-click="delete" phx-value-id={community.id} > <span class="text-blue-500">Delete</span> </.link>    
+  </:col>
+  <:col :let={community} label="Edit"> 
+      <.link href={~p"/community/#{community.id}/edit"} > <span class="text-blue-500">Edit</span> </.link>    
+  </:col>
 </.table>
  
 <%= if @offset != 0 do %>  
@@ -13,3 +16,20 @@
 <%= if @all_records - @offset > @limit do %>
 <.link phx-click="next" ><p class="text-blue-500">Next</p></.link>
 <% end %>
+
+
+<.modal
+  :if={@live_action in [:edit]} 
+  id = "Edit"
+  show
+  on_cancel={JS.navigate(~p"/community")}
+>
+<.live_component
+  module={EcoServiceWeb.EcoServiceLive.EditCommunityComponent}
+  id={:edit}
+  community_id={@community_id}
+  title={@page_title}
+  live_action={@live_action}
+  navigate={~p"/community"}
+/>
+</.modal>

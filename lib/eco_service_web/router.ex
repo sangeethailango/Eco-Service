@@ -18,8 +18,8 @@ defmodule EcoServiceWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-    live "/community", EcoServiceLive.CommunityList
-
+    live "/community", EcoServiceLive.CommunityList, :index
+    live "/community/:id/edit", EcoServiceLive.CommunityList, :edit
   end
 
   # Other scopes may use custom stacks.
