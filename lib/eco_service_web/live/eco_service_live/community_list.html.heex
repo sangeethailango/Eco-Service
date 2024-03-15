@@ -1,8 +1,9 @@
+<h1 class="font-bold text-lg text-center">List of communities</h1>
 <.table id="community" rows={@communities}>
 <:col :let={community} label="Community Name"> <%= community.name%> </:col>
 <:col :let={community} label="Location Area Zone"> <%= community.location_area_zone%> </:col>
-<:col :let={community} label="Edit"> 
-    <.link phx-click="delete" phx-value-id={community.id}> <span class="text-blue-500">Delete</span> </.link>    
+<:col :let={community} label="Delete"> 
+    <.link phx-click="delete" phx-value-id={community.id} > <span class="text-blue-500">Delete</span> </.link>    
 </:col>
 </.table>
  
