@@ -6,6 +6,8 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
   def mount(_params, _session, socket) do
     params = %{limit: 10, offset: 0}
     all_communities = EcoServiceContext.fetch_all_communities(params)
+    IO.inspect(all_communities, label: "All communitiess")
+
     {:ok,
     socket
     |> assign(:communities, all_communities)
@@ -18,6 +20,7 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
   def handle_event("prev", _params, socket) do
     params= %{limit: 10,  offset: socket.assigns.offset-10}
     all_communities = EcoServiceContext.fetch_all_communities(params)
+
     {:noreply,
     socket
     |> assign(:communities, all_communities)
@@ -39,5 +42,13 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
     |> assign(:offset, params.offset)
     |> assign(:all_records, Enum.count(EcoServiceContext.fetch_all_communities()))
    }
+  end
+
+  def handle_event("delete", params, socket) do
+    EcoServiceContext.delete_waste(params["id"])
+    EcoServiceContext.delete_community(params["id"])
+    {:noreply,
+    socket
+    }
   end
 end
