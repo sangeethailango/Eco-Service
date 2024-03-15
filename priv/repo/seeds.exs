@@ -35,12 +35,12 @@ for number <- list_of_numbers do
       kg_of_paper: 50.00,
       kg_of_plastic: 51.00,
       kg_of_sanitory: 19.00,
-      kg_of_sef_lf: 13.44,
+      kg_of_seg_lf: 13.44,
       mixed_bags: 12,
       paper_bags: 30,
       plastic_bags: 40,
       sanitory_bags: 50,
-      sef_lf_bags: 10,
+      seg_lf_bags: 10,
       community_id: community.id
     }
   )
