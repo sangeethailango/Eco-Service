@@ -39,4 +39,33 @@ defmodule EcoService.EcoServiceContext do
     |> Community.changeset(params)
     |> Repo.update()
   end
+
+  def get_waste_by_community_id(community_id, params) do
+    query =
+      from w in Waste,
+      where: w.community_id == ^community_id,
+      limit: ^params.limit,
+      offset: ^params.offset
+
+    query
+    |> Repo.all()
+    |> Repo.preload(:community)
+  end
+
+  def get_waste_by_community_id(community_id) do
+    Waste
+    |> where(community_id: ^community_id)
+    |> Repo.all()
+  end
+
+  def insert_waste(params) do
+    %Waste{}
+    |> Waste.add_waste_changeset(params)
+    |> Repo.insert()
+  end
+
+  def get_all_waste() do
+    Wate
+    |> Repo.all()
+  end
 end

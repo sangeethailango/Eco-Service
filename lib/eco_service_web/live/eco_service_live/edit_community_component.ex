@@ -32,7 +32,7 @@ defmodule EcoServiceWeb.EcoServiceLive.EditCommunityComponent do
       {:noreply,
       socket
       |> put_flash(:info, "Successfully Update")
-      |> redirect(to: ~p"/community")
+      |> redirect(to: ~p"/communities")
      }
     end
   end
