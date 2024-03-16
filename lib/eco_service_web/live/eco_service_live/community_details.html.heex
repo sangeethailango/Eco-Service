@@ -1,6 +1,11 @@
 <h1 class="font-bold text-lg text-center">Community Details</h1>
+<h1 class="font-bold text-lg text-left"><%= @community_detail.name %></h1>
+
+<.link href={~p"/communities/#{@community_id}/add_waste"}>
+  <.button>Add Waste</.button>
+</.link>
 <.table id="waste" rows={@waste_details} >
-  <:col :let={waste_detail} label="DateS"> <%=  waste_detail.date %>   </:col> 
+  <:col :let={waste_detail} label="Date"> <%=  waste_detail.date %>   </:col> 
   <:col :let={waste_detail} label="Glass Bags"> <%=  waste_detail.glass_bags %>  </:col> 
   <:col :let={waste_detail} label="Mixed Bags"> <%=  waste_detail.mixed_bags %>  </:col> 
   <:col :let={waste_detail} label="Paper Bags"> <%=  waste_detail.paper_bags %>  </:col> 
@@ -15,3 +20,20 @@
   <:col :let={waste_detail} label="KG of Seg lf "> <%=  waste_detail.kg_of_seg_lf %>  </:col> 
   <:col :let={waste_detail} label="Comments"> <%=  waste_detail.comments %>  </:col> 
 </.table>
+
+<.modal
+ :if={@live_action in [:add_waste]}
+ id="add-waste"
+ show
+ on_cancel={JS.navigate(~p"/communities/#{@community_id}/community_details")}
+>
+  <.live_component 
+   module={EcoServiceWeb.EcoServiceLive.AddWasteComponent}
+   id={:add_waste}
+   live_action={@live_action}
+   page_title={@page_title}
+   community_id={@community_id}
+   navigate={(~p"/communities/#{@community_id}/community_details")}
+  
+  />
+</.modal>

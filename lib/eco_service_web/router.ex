@@ -20,7 +20,8 @@ defmodule EcoServiceWeb.Router do
     get "/", PageController, :home
     live "/communities", EcoServiceLive.CommunityList, :index
     live "/communities/:id/edit", EcoServiceLive.CommunityList, :edit
-    live "/communities/:id/community_details", EcoServiceLive.CommunityDetails
+    live "/communities/:id/community_details", EcoServiceLive.CommunityDetails, :community_details
+    live "/communities/:id/add_waste", EcoServiceLive.CommunityDetails, :add_waste
 
   end
 
