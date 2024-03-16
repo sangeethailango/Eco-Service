@@ -13,11 +13,12 @@ defmodule EcoServiceWeb.EcoServiceLive.AddWasteComponent do
           <.input field={form[:kg_of_plastic]} label="KG of Plastic"/>
           <.input field={form[:kg_of_sanitory]} label="KG of Sanitory"/>
           <.input field={form[:kg_of_seg_lf]} label="KG of Seg LF"/>
-          <.input field={form[:mixed_bags]} label="Mixed Bags"/>
-          <.input field={form[:paper_bags]} label="Paper Bags"/>
-          <.input field={form[:plastic_bags]} label="Plastic Bags"/>
-          <.input field={form[:sanitory_bags]} label="Sanitory Bags"/>
-          <.input field={form[:seg_lf_bags]} label="Seg LF bags"/>
+          <.input field={form[:mixed_bags]} label="No. of Mixed Bags"/>
+          <.input field={form[:paper_bags]} label="No. of Paper Bags"/>
+          <.input field={form[:plastic_bags]} label="No. of Plastic Bags"/>
+          <.input field={form[:sanitory_bags]} label="No. of Sanitory Bags"/>
+          <.input field={form[:seg_lf_bags]} label="No. of Seg LF bags"/>
+          <.input field={form[:glass_bags]} label="No. of Glass Bags"/>
           <.input field={form[:comments]} label="Comments"/>
 
           <.button>Save</.button>
