@@ -10,12 +10,16 @@
   </:col>
 </.table>
  
+<.link phx-click="first" ><p class="text-blue-500">First</p></.link>
+
 <%= if @offset != 0 do %>  
 <.link phx-click="prev" ><p class="text-blue-500">Prev</p></.link>
 <% end%>
-<%= if @all_records - @offset > @limit do %>
+<%= if @count_of_all_records - @offset > @limit do %>
 <.link phx-click="next" ><p class="text-blue-500">Next</p></.link>
 <% end %>
+
+<.link phx-click="last" ><p class="text-blue-500">Last</p></.link>
 
 
 <.modal

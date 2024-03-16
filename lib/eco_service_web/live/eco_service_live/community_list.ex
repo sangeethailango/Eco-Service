@@ -12,7 +12,7 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
     |> assign(:communities, all_communities)
     |> assign(:limit, params.limit)
     |> assign(:offset, params.offset)
-    |> assign(:all_records, Enum.count(EcoServiceContext.fetch_all_communities()))
+    |> assign(:count_of_all_records, Enum.count(EcoServiceContext.fetch_all_communities()))
     }
   end
 
@@ -25,8 +25,7 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
     |> assign(:communities, all_communities)
     |> assign(:limit, params.limit)
     |> assign(:offset, params.offset)
-    |> assign(:all_records, nil)
-    |> assign(:all_records, Enum.count(EcoServiceContext.fetch_all_communities()))
+    |> assign(:count_of_all_records, Enum.count(EcoServiceContext.fetch_all_communities()))
    }
   end
 
@@ -39,9 +38,37 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
     |> assign(:communities, all_communities)
     |> assign(:limit, params.limit)
     |> assign(:offset, params.offset)
-    |> assign(:all_records, Enum.count(EcoServiceContext.fetch_all_communities()))
+    |> assign(:count_of_all_records, Enum.count(EcoServiceContext.fetch_all_communities()))
    }
   end
+
+  def handle_event("first", _params, socket) do
+    params = %{limit: 10, offset: 0}
+    all_communities = EcoServiceContext.fetch_all_communities(params)
+
+    {:noreply,
+    socket
+    |> assign(:communities, all_communities)
+   }
+  end
+
+  def handle_event("last", _params, socket) do
+    all_communities_count = Enum.count(EcoServiceContext.fetch_all_communities())
+
+    offset = all_communities_count - socket.assigns.limit
+
+    params = %{limit: 10, offset: offset}
+
+    all_communities = EcoServiceContext.fetch_all_communities(params)
+
+    {:noreply,
+    socket
+    |> assign(:communities, all_communities)
+    |> assign(:offset, params.offset)
+    |> assign(:count_of_all_records, all_communities_count)
+   }
+  end
+
 
   def handle_event("delete", params, socket) do
     EcoServiceContext.delete_waste(params["id"])
