@@ -4,51 +4,52 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
   alias EcoService.EcoServiceContext
 
   def mount(_params, _session, socket) do
-    params = %{limit: 10, offset: 0}
-    all_communities = EcoServiceContext.fetch_all_communities(params)
+    pag_params = %{limit: 10, offset: 0}
+    all_communities = EcoServiceContext.fetch_all_communities(pag_params)
 
     {:ok,
     socket
     |> assign(:communities, all_communities)
-    |> assign(:limit, params.limit)
-    |> assign(:offset, params.offset)
+    |> assign(:limit, pag_params.limit)
+    |> assign(:offset, pag_params.offset)
     |> assign(:count_of_all_records, Enum.count(EcoServiceContext.fetch_all_communities()))
     }
   end
 
   def handle_event("prev", _params, socket) do
-    params= %{limit: 10,  offset: socket.assigns.offset-10}
-    all_communities = EcoServiceContext.fetch_all_communities(params)
+    pag_params= %{limit: 10,  offset: socket.assigns.offset-10}
+    all_communities = EcoServiceContext.fetch_all_communities(pag_params)
 
     {:noreply,
     socket
     |> assign(:communities, all_communities)
-    |> assign(:limit, params.limit)
-    |> assign(:offset, params.offset)
+    |> assign(:limit, pag_params.limit)
+    |> assign(:offset, pag_params.offset)
     |> assign(:count_of_all_records, Enum.count(EcoServiceContext.fetch_all_communities()))
    }
   end
 
   def handle_event("next", _params, socket) do
-    params= %{limit: 10,  offset: socket.assigns.offset+10}
-    all_communities = EcoServiceContext.fetch_all_communities(params)
+    pag_params= %{limit: 10,  offset: socket.assigns.offset+10}
+    all_communities = EcoServiceContext.fetch_all_communities(pag_params)
 
     {:noreply,
     socket
     |> assign(:communities, all_communities)
-    |> assign(:limit, params.limit)
-    |> assign(:offset, params.offset)
+    |> assign(:limit, pag_params.limit)
+    |> assign(:offset, pag_params.offset)
     |> assign(:count_of_all_records, Enum.count(EcoServiceContext.fetch_all_communities()))
    }
   end
 
   def handle_event("first", _params, socket) do
-    params = %{limit: 10, offset: 0}
-    all_communities = EcoServiceContext.fetch_all_communities(params)
+    pag_params = %{limit: 10, offset: 0}
+    all_communities = EcoServiceContext.fetch_all_communities(pag_params)
 
     {:noreply,
     socket
     |> assign(:communities, all_communities)
+    |> assign(:offset, pag_params.offset)
    }
   end
 
@@ -57,14 +58,14 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
 
     offset = all_communities_count - socket.assigns.limit
 
-    params = %{limit: 10, offset: offset}
+    pag_params = %{limit: 10, offset: offset}
 
-    all_communities = EcoServiceContext.fetch_all_communities(params)
+    all_communities = EcoServiceContext.fetch_all_communities(pag_params)
 
     {:noreply,
     socket
     |> assign(:communities, all_communities)
-    |> assign(:offset, params.offset)
+    |> assign(:offset, pag_params.offset)
     |> assign(:count_of_all_records, all_communities_count)
    }
   end
