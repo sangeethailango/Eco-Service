@@ -39,4 +39,10 @@ defmodule EcoService.EcoServiceContext do
     |> Community.changeset(params)
     |> Repo.update()
   end
+
+  def get_waste_by_community_id(community_id) do
+    Waste
+    |> Repo.get_by(community_id: community_id)
+    |> Repo.preload(:community)
+  end
 end

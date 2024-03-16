@@ -1,12 +1,16 @@
 <h1 class="font-bold text-lg text-center">List of communities</h1>
 <.table id="community" rows={@communities}>
-  <:col :let={community} label="Community Name"> <%= community.name%> </:col>
+  <:col :let={community} label="Community Name">
+  <.link href={~p"/communities/#{community.id}/community_details"}>
+   <u class="text-blue-600"><%= community.name%></u>
+  </.link> 
+  </:col>
   <:col :let={community} label="Location Area Zone"> <%= community.location_area_zone%> </:col>
   <:col :let={community} label="Delete"> 
       <.link phx-click="delete" phx-value-id={community.id} > <span class="text-blue-500">Delete</span> </.link>    
   </:col>
   <:col :let={community} label="Edit"> 
-      <.link href={~p"/community/#{community.id}/edit"} > <span class="text-blue-500">Edit</span> </.link>    
+      <.link href={~p"/communities/#{community.id}/edit"} > <span class="text-blue-500">Edit</span> </.link>    
   </:col>
 </.table>
  
@@ -26,7 +30,7 @@
   :if={@live_action in [:edit]} 
   id = "Edit"
   show
-  on_cancel={JS.navigate(~p"/community")}
+  on_cancel={JS.navigate(~p"/communities")}
 >
 <.live_component
   module={EcoServiceWeb.EcoServiceLive.EditCommunityComponent}
@@ -34,6 +38,6 @@
   community_id={@community_id}
   title={@page_title}
   live_action={@live_action}
-  navigate={~p"/community"}
+  navigate={~p"/communities"}
 />
 </.modal>

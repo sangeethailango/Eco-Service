@@ -77,7 +77,7 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
     {:noreply,
     socket
     |> put_flash(:info, "Community Deleted Successfully")
-    |> redirect(to: ~p"/community")
+    |> redirect(to: ~p"/communities")
    }
   end
 
