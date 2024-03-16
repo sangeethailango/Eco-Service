@@ -28,4 +28,15 @@ defmodule EcoService.EcoServiceContext do
     |> where(id: ^id)
     |> Repo.delete_all()
   end
+
+  def get_community_by_id(id) do
+    Community
+    |> Repo.get_by(id: id)
+  end
+
+  def update_community(%Community{} = community, params) do
+    community
+    |> Community.changeset(params)
+    |> Repo.update()
+  end
 end
