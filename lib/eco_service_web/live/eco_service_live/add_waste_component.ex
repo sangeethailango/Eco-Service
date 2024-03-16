@@ -27,7 +27,6 @@ defmodule EcoServiceWeb.EcoServiceLive.AddWasteComponent do
   end
 
   def update(assigns, socket) do
-
     {:ok,
     socket
     |> assign(assigns)

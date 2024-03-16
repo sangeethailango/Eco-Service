@@ -40,5 +40,4 @@ defmodule EcoService.EcoService.Waste do
     |> cast(attrs, [:community_id,  :date, :glass_bags, :mixed_bags, :plastic_bags, :paper_bags, :seg_lf_bags, :sanitory_bags, :kg_of_glass, :kg_of_mixed, :kg_of_plastic, :kg_of_paper, :kg_of_seg_lf, :kg_of_sanitory, :comments])
     |> validate_required([:date, :community_id])
   end
-
 end

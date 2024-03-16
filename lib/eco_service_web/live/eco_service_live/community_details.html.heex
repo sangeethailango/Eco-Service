@@ -4,6 +4,7 @@
 <.link href={~p"/communities/#{@community_id}/add_waste"}>
   <.button>Add Waste</.button>
 </.link>
+
 <.table id="waste" rows={@waste_details} >
   <:col :let={waste_detail} label="Date"> <%=  waste_detail.date %>   </:col> 
   <:col :let={waste_detail} label="Glass Bags"> <%=  waste_detail.glass_bags %>  </:col> 
@@ -20,6 +21,18 @@
   <:col :let={waste_detail} label="KG of Seg lf "> <%=  waste_detail.kg_of_seg_lf %>  </:col> 
   <:col :let={waste_detail} label="Comments"> <%=  waste_detail.comments %>  </:col> 
 </.table>
+
+<div class="flex flex-cols gap-5">
+  <%= if @offset != 0 do %>  
+  <.link phx-click="first" ><p class="text-blue-500">First</p></.link>
+  <.link phx-click="prev"> <p class="text-blue-500">Prev</p> </.link>
+  <% end %>
+
+  <%= if @count_of_all_records - @offset > @limit do %>
+  <.link phx-click="next"> <p class="text-blue-500">Next</p></.link>
+  <.link phx-click="last" ><p class="text-blue-500">Last</p></.link>
+  <% end %>
+</div>
 
 <.modal
  :if={@live_action in [:add_waste]}
