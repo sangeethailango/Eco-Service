@@ -26,8 +26,8 @@ import Chart from 'chart.js/auto';
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 
 let hooks = {}
-hooks.ChartJS =  {
-  dataset() { return JSON.parse(this.el.dataset.number_of_bags); }, 
+hooks.AllWaste =  {
+  dataset() { return JSON.parse(this.el.dataset.waste_bags_of_all_communities); }, 
   mounted() {
     const ctx = this.el;
   const data = {
@@ -41,6 +41,23 @@ hooks.ChartJS =  {
     const chart = new Chart(ctx, data);
   }
 } 
+
+hooks.TopFiveWaste =  {
+  dataset() { return JSON.parse(this.el.dataset.top_5_communities_produce_waste); }, 
+  mounted() {
+    const ctx = this.el;
+  const data = {
+      type: 'bar',
+      data: {
+    // random data to validate chart generation
+    labels: ['Glass Bags', 'Mixed Bags', 'Paper Bags', 'Plastic Bags', 'Sanitory Bags', 'Seg LF bags'],
+        datasets: [{data: this.dataset()}]
+   }
+  };
+    const chart = new Chart(ctx, data);
+  }
+} 
+
 
 let liveSocket = new LiveSocket("/live", Socket, {hooks: hooks, params: {_csrf_token: csrfToken}})
 
