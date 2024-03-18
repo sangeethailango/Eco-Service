@@ -17,7 +17,7 @@ defmodule EcoServiceWeb.Router do
   scope "/", EcoServiceWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", EcoServiceLive.Dashboard
     live "/communities", EcoServiceLive.CommunityList, :index
     live "/communities/:id/edit", EcoServiceLive.CommunityList, :edit
     live "/communities/:id/community_details", EcoServiceLive.CommunityDetails, :community_details
