@@ -50,13 +50,36 @@ hooks.TopFiveWaste =  {
       type: 'bar',
       data: {
     // random data to validate chart generation
-    labels: JSON.parse(this.el.dataset.top_5_community_produce_waste),
+    labels: JSON.parse(this.el.dataset.top_5_community_produce_waste  ),
         datasets: [{data: this.dataset()}]
    }
   };
     const chart = new Chart(ctx, data);
   }
 } 
+
+hooks.TopFiveWasteCategoryWise =  {
+  glass_bags() { return JSON.parse(this.el.dataset.top_communities_glass_bags);}, 
+  mixed_bags() { return JSON.parse(this.el.dataset.top_communities_mixed_bags); }, 
+  paper_bags() { return JSON.parse(this.el.dataset.top_communities_paper_bags); }, 
+  plastic_bags() { return JSON.parse(this.el.dataset.top_communities_plastic_bags); }, 
+  sanitory_bags() { return JSON.parse(this.el.dataset.top_communities_sanitory_bags); }, 
+  seg_lf_bags() { return JSON.parse(this.el.dataset.top_communities_seg_lf_bags); }, 
+
+  mounted() {
+    const ctx = this.el;
+  const data = {
+      type: 'bar',
+      data: {
+    // random data to validate chart generation
+    labels: JSON.parse(this.el.dataset.top_5_community_produce_waste),
+        datasets: [{data: this.glass_bags()},{data: this.mixed_bags()},{data: this.paper_bags()},{data: this.plastic_bags()},{data: this.sanitory_bags()},{data: this.seg_lf_bags()}  ]
+   }
+  };
+    const chart = new Chart(ctx, data);
+  }
+} 
+
 
 
 let liveSocket = new LiveSocket("/live", Socket, {hooks: hooks, params: {_csrf_token: csrfToken}})

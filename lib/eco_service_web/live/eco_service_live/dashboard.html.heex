@@ -5,6 +5,12 @@
 
 <div class="pt-6">
   <h1 class="text-center font-bold pb-6 text-lg">Top 5 communities that is producing waste</h1> 
-  <canvas id="my-chart" phx-hook="TopFiveWaste" data-highest_waste_collected={@highest_waste_collected} data-top_5_community_produce_waste={@top_5_community_produce_waste}></canvas>
+  <canvas id="total-waste" phx-hook="TopFiveWaste" data-highest_waste_collected={@highest_waste_collected} data-top_5_community_produce_waste={@top_5_community_produce_waste}></canvas>
 </div>
+
+<div class="pt-6">
+  <h1 class="text-center font-bold pb-6 text-lg">Top 5 communities that is producing waste</h1> 
+  <canvas id="category-wise-total-waste" phx-hook="TopFiveWasteCategoryWise" data-top_5_community_produce_waste={@top_5_community_produce_waste} data-top_communities_glass_bags={@top_communities_glass_bags} data-top_communities_mixed_bags={@top_communities_mixed_bags} data-top_communities_paper_bags={@top_communities_paper_bags} data-top_communities_plastic_bags={@top_communities_plastic_bags} data-top_communities_sanitory_bags={@top_communities_sanitory_bags} data-top_communities_seg_lf_bags={@top_communities_seg_lf_bags}></canvas>
+</div>
+
 
