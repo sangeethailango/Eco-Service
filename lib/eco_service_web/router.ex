@@ -22,13 +22,14 @@ defmodule EcoServiceWeb.Router do
     live "/communities/:id/edit", EcoServiceLive.CommunityList, :edit
     live "/communities/:id/community_details", EcoServiceLive.CommunityDetails, :community_details
     live "/communities/:id/add_waste", EcoServiceLive.CommunityDetails, :add_waste
-
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", EcoServiceWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", EcoServiceWeb do
+    pipe_through :api
+
+    get "/list_of_communities", PageController, :get_all_communities
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:eco_service, :dev_routes) do
