@@ -67,6 +67,7 @@ defmodule EcoService.EcoServiceContext do
   def get_all_waste() do
     Waste
     |> Repo.all()
+    |> Repo.preload(:community)
   end
 
   def get_last_one_month_waste() do
@@ -104,5 +105,30 @@ defmodule EcoService.EcoServiceContext do
   def total_seg_lf_bags(wastes) do
     seg_lf_bags = Enum.map(wastes, fn waste -> waste.seg_lf_bags end)
     Enum.sum(Enum.reject(seg_lf_bags, fn bag -> bag == nil end))
+  end
+
+  def top_5_communities_produce_waste() do
+
+    all_wastes = get_all_waste()
+
+    sum_of_all_waste_with_community_id =
+
+    Enum.map(all_wastes, fn waste ->
+      %{
+        community_id: waste.community.id,
+        waste:
+              [waste.glass_bags, waste.mixed_bags, waste.paper_bags, waste.plastic_bags, waste.sanitory_bags, waste.seg_lf_bags]
+              |> Enum.reject( fn waste -> waste == nil end)
+              |> Enum.sum()
+      }
+    end)
+    # IO.inspect(sum_of_all_waste_with_community_id, label: "Sum")
+
+    sum_of_all_waste_with_community_id
+    |> Enum.map(fn waste -> waste.waste end) |> IO.inspect(label: "inspect")
+    |> Enum.sort(&(&1 >= &2))
+
+    |> Enum.take(5)
+
   end
 end
