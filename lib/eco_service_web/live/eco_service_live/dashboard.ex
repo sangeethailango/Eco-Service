@@ -13,13 +13,23 @@ defmodule EcoServiceWeb.EcoServiceLive.Dashboard do
     total_santiriy_bags = EcoServiceContext.total_sanitory_bags(last_one_month_waste)
     total_seg_lf_bags = EcoServiceContext.total_seg_lf_bags(last_one_month_waste)
 
-    top_communities_producing_waste = EcoServiceContext.top_5_communities_produce_waste() |> IO.inspect(label: "Inspect")
+    top_5_community_details = EcoServiceContext.top5_comm_details()
+
+    highest_waste_collected =
+    top_5_community_details
+    |> Enum.map(fn waste -> waste.waste end )
+
+    top_5_community_produce_waste =
+    top_5_community_details
+    |> Enum.map(fn params -> EcoServiceContext.get_community_by_id(params.community_id).name end )
 
     {:ok,
     socket
     |> assign(:waste_bags_of_all_communities, Jason.encode!([total_glass_bags, total_mixed_bags, total_paper_bags, total_plastic_bags, total_santiriy_bags, total_seg_lf_bags]))
-    |> assign(:top_5_communities_produce_waste, Jason.encode!(top_communities_producing_waste) )
-    }
+    |> assign(:highest_waste_collected, Jason.encode!(highest_waste_collected))
+    |> assign(:top_5_community_produce_waste, Jason.encode!(top_5_community_produce_waste))
+
+  }
   end
 
   def handle_params(_params, _url, socket) do

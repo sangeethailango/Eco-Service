@@ -43,14 +43,14 @@ hooks.AllWaste =  {
 } 
 
 hooks.TopFiveWaste =  {
-  dataset() { return JSON.parse(this.el.dataset.top_5_communities_produce_waste); }, 
+  dataset() { return JSON.parse(this.el.dataset.highest_waste_collected); }, 
   mounted() {
     const ctx = this.el;
   const data = {
       type: 'bar',
       data: {
     // random data to validate chart generation
-    labels: ['Glass Bags', 'Mixed Bags', 'Paper Bags', 'Plastic Bags', 'Sanitory Bags', 'Seg LF bags'],
+    labels: JSON.parse(this.el.dataset.top_5_community_produce_waste),
         datasets: [{data: this.dataset()}]
    }
   };

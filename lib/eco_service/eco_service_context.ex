@@ -107,12 +107,12 @@ defmodule EcoService.EcoServiceContext do
     Enum.sum(Enum.reject(seg_lf_bags, fn bag -> bag == nil end))
   end
 
-  def top_5_communities_produce_waste() do
+  def top5_comm_details() do
 
     all_wastes = get_all_waste()
 
+    # calculate the cum of all wastes that is produced by a community
     sum_of_all_waste_with_community_id =
-
     Enum.map(all_wastes, fn waste ->
       %{
         community_id: waste.community.id,
@@ -122,12 +122,10 @@ defmodule EcoService.EcoServiceContext do
               |> Enum.sum()
       }
     end)
-    # IO.inspect(sum_of_all_waste_with_community_id, label: "Sum")
 
+    # Sorting the communities by waste count and taking the top 5
     sum_of_all_waste_with_community_id
-    |> Enum.map(fn waste -> waste.waste end) |> IO.inspect(label: "inspect")
-    |> Enum.sort(&(&1 >= &2))
-
+    |> Enum.sort_by(&(&1.waste), :desc)
     |> Enum.take(5)
 
   end
