@@ -29,6 +29,7 @@ defmodule EcoServiceWeb.Router do
     pipe_through :api
 
     get "/list_of_communities", PageController, :get_all_communities
+    post "/add_waste", PageController, :add_waste
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

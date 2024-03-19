@@ -16,4 +16,27 @@ defmodule EcoServiceWeb.PageController do
 
     json(conn, all_communities )
   end
+
+  def add_waste(conn, params) do
+
+    date_string = String.slice(params["date"], 3, 10)
+    date = Date.from_iso8601!(date_string)
+
+    params =  Map.replace(params, "date", date)
+
+    insert_waste = EcoServiceContext.insert_waste(params) |> IO.inspect(label: "Insert Waste")
+
+    case insert_waste do
+
+      {:ok, _} ->
+      conn
+      |> put_status(:created)
+      |> text("Data Inserted Successfully")
+
+      {:error, _} ->
+      conn
+      |> put_status(:internal_server_error)
+      |> text("Insertion Failed")
+    end
+  end
 end
