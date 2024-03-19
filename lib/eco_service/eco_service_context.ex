@@ -65,7 +65,44 @@ defmodule EcoService.EcoServiceContext do
   end
 
   def get_all_waste() do
-    Wate
+    Waste
     |> Repo.all()
+  end
+
+  def get_last_one_month_waste() do
+    last_month = Date.utc_today |> Date.add(-30)
+    query =
+      from w in Waste,
+      where: w.date >= ^last_month
+
+    query
+    |> Repo.all()
+    |> Repo.preload(:community)
+  end
+
+  def total_glass_bags(wastes) do
+    glass_bags = Enum.map(wastes, fn waste -> waste.glass_bags end)
+    Enum.sum(Enum.reject(glass_bags, fn bag -> bag == nil end))
+  end
+
+  def total_mixed_bags(wastes) do
+    mixed_bags = Enum.map(wastes, fn waste -> waste.mixed_bags end)
+    Enum.sum(Enum.reject(mixed_bags, fn bag -> bag == nil end))
+  end
+  def total_paper_bags(wastes) do
+    paper_bags = Enum.map(wastes, fn waste -> waste.paper_bags end)
+    Enum.sum(Enum.reject(paper_bags, fn bag -> bag == nil end))
+  end
+  def total_plastic_bags(wastes) do
+    plastic_bags = Enum.map(wastes, fn waste -> waste.plastic_bags end)
+    Enum.sum(Enum.reject(plastic_bags, fn bag -> bag == nil end))
+  end
+  def total_sanitory_bags(wastes) do
+    sanitory_bags = Enum.map(wastes, fn waste -> waste.sanitory_bags end)
+    Enum.sum(Enum.reject(sanitory_bags, fn bag -> bag == nil end))
+  end
+  def total_seg_lf_bags(wastes) do
+    seg_lf_bags = Enum.map(wastes, fn waste -> waste.seg_lf_bags end)
+    Enum.sum(Enum.reject(seg_lf_bags, fn bag -> bag == nil end))
   end
 end

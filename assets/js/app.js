@@ -21,9 +21,29 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
+import Chart from 'chart.js/auto';
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+
+let hooks = {}
+hooks.ChartJS =  {
+  dataset() { return JSON.parse(this.el.dataset.number_of_bags); }, 
+  mounted() {
+    const ctx = this.el;
+  const data = {
+      type: 'bar',
+      data: {
+    // random data to validate chart generation
+    labels: ['Glass Bags', 'Mixed Bags', 'Paper Bags', 'Plastic Bags', 'Sanitory Bags', 'Seg LF bags'],
+        datasets: [{data: this.dataset()}]
+   }
+  };
+    const chart = new Chart(ctx, data);
+  }
+} 
+
+let liveSocket = new LiveSocket("/live", Socket, {hooks: hooks, params: {_csrf_token: csrfToken}})
+
 
 // Show progress bar on live navigation and form submits
 topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
