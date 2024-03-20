@@ -6,16 +6,16 @@ defmodule EcoServiceWeb.EcoServiceLive.Dashboard do
   def mount(_params, _session, socket) do
 
     # Total waste of all communities
-    last_one_month_waste = EcoServiceContext.get_last_one_month_waste()
+    last_one_month_waste_details = EcoServiceContext.get_last_one_month_waste()
 
     waste_bags_of_all_communities =
     [
-    EcoServiceContext.total_glass_bags(last_one_month_waste),
-    EcoServiceContext.total_mixed_bags(last_one_month_waste),
-    EcoServiceContext.total_paper_bags(last_one_month_waste),
-    EcoServiceContext.total_plastic_bags(last_one_month_waste),
-    EcoServiceContext.total_sanitory_bags(last_one_month_waste),
-    EcoServiceContext.total_seg_lf_bags(last_one_month_waste)
+    EcoServiceContext.total_glass_bags(last_one_month_waste_details),
+    EcoServiceContext.total_mixed_bags(last_one_month_waste_details),
+    EcoServiceContext.total_paper_bags(last_one_month_waste_details),
+    EcoServiceContext.total_plastic_bags(last_one_month_waste_details),
+    EcoServiceContext.total_sanitory_bags(last_one_month_waste_details),
+    EcoServiceContext.total_seg_lf_bags(last_one_month_waste_details)
     ]
 
     # Total waste of top 5 communiteis
