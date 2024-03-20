@@ -30,33 +30,136 @@ hooks.AllWaste =  {
   dataset() { return JSON.parse(this.el.dataset.waste_bags_of_all_communities); }, 
   mounted() {
     const ctx = this.el;
-  const data = {
+  const data = 
+  {
       type: 'bar',
       data: {
-    // random data to validate chart generation
-    labels: ['Glass Bags', 'Mixed Bags', 'Paper Bags', 'Plastic Bags', 'Sanitory Bags', 'Seg LF bags'],
-        datasets: [{data: this.dataset()}]
-   }
+              // random data to validate chart generation
+              labels: ['Glass Bags', 'Mixed Bags', 'Paper Bags', 'Plastic Bags', 'Sanitory Bags', 'Seg LF bags'],
+                  datasets: [{label: "Quantity Of Bags", data: this.dataset()}]
+            },
+      options: {
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: 'No Of Bags',
+              font: {
+                size: 16
+              },
+              color: "#000000",
+              padding: 20
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Categories Of Wastes',
+              font: {
+                size: 16
+              },
+              color: "#000000",
+              padding: 20
+            }
+          }
+        }     
+      }    
   };
     const chart = new Chart(ctx, data);
   }
 } 
 
 hooks.TopFiveWaste =  {
-  dataset() { return JSON.parse(this.el.dataset.top_5_communities_produce_waste); }, 
+  dataset() { return JSON.parse(this.el.dataset.highest_count_of_waste_produced_by_communities); }, 
   mounted() {
     const ctx = this.el;
   const data = {
       type: 'bar',
       data: {
-    // random data to validate chart generation
-    labels: ['Glass Bags', 'Mixed Bags', 'Paper Bags', 'Plastic Bags', 'Sanitory Bags', 'Seg LF bags'],
-        datasets: [{data: this.dataset()}]
-   }
+          // random data to validate chart generation
+          labels: JSON.parse(this.el.dataset.top_5_community_produce_waste  ),
+              datasets: [{label: "Quantity Of Bags", data: this.dataset()}]
+            },
+      options: {
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: 'No Of Bags',
+              font: {
+                size: 16
+              },
+              color: "#000000",
+              padding: 20
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Communities',
+              font: {
+                size: 16
+              },
+              color: "#000000",
+              padding: 20
+  
+            }
+          }
+        }     
+      }    
   };
     const chart = new Chart(ctx, data);
   }
 } 
+
+hooks.TopFiveWasteCategoryWise =  {
+  glass_bags() { return JSON.parse(this.el.dataset.top_communities_glass_bags);}, 
+  mixed_bags() { return JSON.parse(this.el.dataset.top_communities_mixed_bags); }, 
+  paper_bags() { return JSON.parse(this.el.dataset.top_communities_paper_bags); }, 
+  plastic_bags() { return JSON.parse(this.el.dataset.top_communities_plastic_bags); }, 
+  sanitory_bags() { return JSON.parse(this.el.dataset.top_communities_sanitory_bags); }, 
+  seg_lf_bags() { return JSON.parse(this.el.dataset.top_communities_seg_lf_bags); }, 
+
+  mounted() {
+    const ctx = this.el;
+  const data = {
+      type: 'bar',
+      data: {
+              // random data to validate chart generation
+              labels: JSON.parse(this.el.dataset.top_5_community_produce_waste),
+                  datasets: [{backgroundColor: "#41C9E2", label: "Glass Bags",  data: this.glass_bags()},{backgroundColor: "#898121", label: "Mixed Bags",  data: this.mixed_bags()},{backgroundColor: "#007F73", label: "Paper Bags",  data: this.paper_bags()},{backgroundColor: "#28B463"  , label: "Plastic Bags",  data: this.plastic_bags()},{backgroundColor: "#DDDDDD", label: "Sanitory Bags",  data: this.sanitory_bags()},{backgroundColor: "#2980B9", label: "Seg LF Bags",  data: this.seg_lf_bags()}  ]
+            },
+      options: {
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: 'No Of Bags',
+              font: {
+                size: 16
+              },
+              color: "#000000",
+              padding: 20  
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Communities',
+              font: {
+                size: 16
+              },
+              color: "#000000",
+              padding: 20  
+            }
+          }
+        }     
+      }    
+  };
+    const chart = new Chart(ctx, data);
+  }
+} 
+
 
 
 let liveSocket = new LiveSocket("/live", Socket, {hooks: hooks, params: {_csrf_token: csrfToken}})
