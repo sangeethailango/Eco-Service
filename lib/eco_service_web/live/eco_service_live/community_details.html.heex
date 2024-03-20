@@ -1,11 +1,15 @@
-<h1 class="font-bold text-lg text-center">Community Details</h1>
-<h1 class="font-bold text-lg text-left"><%= @community_detail.name %></h1>
+  <h1 class="font-bold text-2xl text-center pb-10">Community Details</h1>
 
-<.link href={~p"/communities/#{@community_id}/add_waste"}>
-  <.button>Add Waste</.button>
-</.link>
+<div class="flex flex-cols justify-between">
+  <h1 class="font-bold text-lg text-left"><%= @community_detail.name %></h1>
+  
+  <.link href={~p"/communities/#{@community_id}/add_waste"}>
+    <.button>Add Waste</.button>
+  </.link>
+</div>
 
 <.table id="waste" rows={@waste_details} >
+
   <:col :let={waste_detail} label="Date"> <%=  waste_detail.date %>   </:col> 
   <:col :let={waste_detail} label="No. of Glass Bags"> <%=  waste_detail.glass_bags %>  </:col> 
   <:col :let={waste_detail} label="No. of Mixed Bags"> <%=  waste_detail.mixed_bags %>  </:col> 
@@ -32,6 +36,11 @@
   <.link phx-click="next"> <p class="text-blue-500">Next</p></.link>
   <.link phx-click="last" ><p class="text-blue-500">Last</p></.link>
   <% end %>
+</div>
+
+<div class="pt-20">
+  <h1 class="font-bold text-2xl text-center pb-10">Last One Month Data</h1> 
+  <canvas id="my-chart" phx-hook="WasteOfACommunity" data-community_waste_bags={@community_waste_bags}></canvas>
 </div>
 
 <.modal

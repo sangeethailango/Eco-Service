@@ -160,6 +160,50 @@ hooks.TopFiveWasteCategoryWise =  {
   }
 } 
 
+hooks.WasteOfACommunity =  {
+  dataset() { return JSON.parse(this.el.dataset.community_waste_bags); }, 
+  mounted() {
+    const ctx = this.el;
+  const data = 
+  {
+      type: 'bar',
+      data: {
+              // random data to validate chart generation
+              labels: ['Glass Bags', 'Mixed Bags', 'Paper Bags', 'Plastic Bags', 'Sanitory Bags', 'Seg LF bags'],
+                  datasets: [{label: "Quantity Of Bags", data: this.dataset()}]
+            },
+      options: {
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: 'No Of Bags',
+              font: {
+                size: 16
+              },
+              color: "#000000",
+              padding: 20
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Categories Of Wastes',
+              font: {
+                size: 16
+              },
+              color: "#000000",
+              padding: 20
+            }
+          }
+        }     
+      }    
+  };
+    const chart = new Chart(ctx, data);
+  }
+} 
+
+
 
 
 let liveSocket = new LiveSocket("/live", Socket, {hooks: hooks, params: {_csrf_token: csrfToken}})

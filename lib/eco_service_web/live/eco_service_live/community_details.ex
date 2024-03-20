@@ -10,6 +10,23 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityDetails do
     community_detail = EcoServiceContext.get_community_by_id(params["id"])
     count_of_all_records =  Enum.count(EcoServiceContext.get_waste_by_community_id(params["id"]))
 
+    # graph
+
+    last_one_month_waste_details =
+    EcoServiceContext.get_last_one_month_waste()
+    |> Enum.map(fn waste_detail -> if waste_detail.community_id == params["id"], do: waste_detail end)
+    |> Enum.reject(fn waste -> waste == nil end)
+
+    waste_bags =
+    [
+      EcoServiceContext.total_glass_bags(last_one_month_waste_details),
+      EcoServiceContext.total_mixed_bags(last_one_month_waste_details),
+      EcoServiceContext.total_paper_bags(last_one_month_waste_details),
+      EcoServiceContext.total_plastic_bags(last_one_month_waste_details),
+      EcoServiceContext.total_sanitory_bags(last_one_month_waste_details),
+      EcoServiceContext.total_seg_lf_bags(last_one_month_waste_details)
+    ]
+    # End of graph code
     {:ok,
     socket
     |> assign(:waste_details, waste_details)
@@ -18,6 +35,7 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityDetails do
     |> assign(:offset, pag_params.offset)
     |> assign(:limit, pag_params.limit)
     |> assign(:count_of_all_records, count_of_all_records)
+    |> assign(:community_waste_bags, Jason.encode!(waste_bags))
     }
   end
 
