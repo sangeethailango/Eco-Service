@@ -4,6 +4,7 @@ defmodule EcoService.EcoServiceContext do
   alias EcoService.EcoService.Waste
   alias EcoService.Repo
   alias EcoService.EcoService.Community
+  alias EcoService.EcoService.Schedule
 
   def fetch_all_communities(params) do
     Community
@@ -111,7 +112,7 @@ defmodule EcoService.EcoServiceContext do
 
     all_wastes = get_all_waste()
 
-    # calculate the cum of all wastes that is produced by a community
+    # calculate the sum of all wastes that is produced by a community
     sum_of_all_waste_with_community_id =
     Enum.map(all_wastes, fn waste ->
       %{
@@ -129,4 +130,55 @@ defmodule EcoService.EcoServiceContext do
     |> Enum.take(5)
 
   end
+
+  # Schedules
+
+  def get_all_schedules() do
+    Schedule
+    |> Repo.all()
+    |> Repo.preload(:communities)
+  end
+
+  def get_schedule_by_id(schedule_id) do
+    Schedule
+    |> where(id: ^schedule_id)
+    |> Repo.all()
+    |> Repo.preload(:communities)
+  end
+
+  def monday_schedules() do
+    get_all_schedules()
+    |> Enum.map(fn schedule -> if schedule.day_of_week == "Monday", do: schedule end)
+    |> Enum.reject(fn schedule-> schedule == nil end)
+  end
+
+  def tuesday_schedules() do
+    get_all_schedules()
+    |> Enum.map(fn schedule -> if schedule.day_of_week == "Tuesday", do: schedule end)
+    |> Enum.reject(fn schedule-> schedule == nil end)
+  end
+
+  def wednesday_schedules() do
+    get_all_schedules()
+    |> Enum.map(fn schedule -> if schedule.day_of_week == "Wednesday", do: schedule end)
+    |> Enum.reject(fn schedule-> schedule == nil end)
+  end
+
+  def thursday_schedules() do
+    get_all_schedules()
+    |> Enum.map(fn schedule -> if schedule.day_of_week == "Thursday", do: schedule end)
+    |> Enum.reject(fn schedule-> schedule == nil end)
+  end
+
+  def friday_schedules() do
+    get_all_schedules()
+    |> Enum.map(fn schedule -> if schedule.day_of_week == "Friday", do: schedule end)
+    |> Enum.reject(fn schedule-> schedule == nil end)
+  end
+
+  def saturday_schedules() do
+    get_all_schedules()
+    |> Enum.map(fn schedule -> if schedule.day_of_week == "Saturday", do: schedule end)
+    |> Enum.reject(fn schedule-> schedule == nil end)  end
+
 end

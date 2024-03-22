@@ -1,0 +1,107 @@
+  <div  class="border p-2 mb-4">
+    <p class="font-bold">Monday: </p>
+    <.button>
+      <.link href={~p"/schedules/#{List.first(Enum.map(@monday_schedule, fn schedule -> schedule.id end) )}/edit_schedule"}>
+        Edit
+      </.link>
+    </.button>
+
+    <%= for mondays_schedule <- List.first(Enum.map(@monday_schedule, fn monday_schedule -> monday_schedule.communities end)) do %>
+      <ul class="block">
+          <li><%= mondays_schedule.name %> </li> 
+      </ul>
+    <% end %>
+  </div>
+
+  <div  class="border p-2 mb-4">
+    <p class="font-bold">Tuesday: </p>
+    <.button>
+      <.link href={~p"/schedules/#{List.first(Enum.map(@tuesday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
+        Edit
+      </.link>
+    </.button>
+
+    <%= for mondays_schedule <- List.first(Enum.map(@tuesday_schedule, fn monday_schedule -> monday_schedule.communities end)) do %>
+      <ul class="block">
+          <li><%= mondays_schedule.name %> </li> 
+      </ul>
+    <% end %>
+
+  </div>
+  
+  <div  class="border p-2 mb-4">
+    <p class="font-bold">Wednesday: </p>
+    <.button>
+      <.link href={~p"/schedules/#{List.first(Enum.map(@wednesday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
+        Edit
+      </.link>
+    </.button>
+
+    <%= for mondays_schedule <- List.first(Enum.map(@wednesday_schedule, fn monday_schedule -> monday_schedule.communities end))  do %>
+      <ul class="block">
+          <li><%= mondays_schedule.name %> </li> 
+      </ul>
+    <% end %>
+  </div>  
+  
+  <div  class="border p-2 mb-4">
+    <p class="font-bold">Thursday: </p>
+    <.button>
+      <.link href={~p"/schedules/#{List.first(Enum.map(@thursday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
+        Edit
+      </.link>
+    </.button>
+
+    <%= for mondays_schedule <- List.first(Enum.map(@thursday_schedule, fn monday_schedule -> monday_schedule.communities end))  do %>
+      <ul class="block">
+          <li><%= mondays_schedule.name %> </li> 
+      </ul>
+    <% end %>
+  </div>  
+  
+  <div  class="border p-2 mb-4"> 
+    <p class="font-bold">Friday: </p>
+    <.button>
+      <.link href={~p"/schedules/#{List.first(Enum.map(@friday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
+        Edit
+      </.link>
+    </.button>
+
+    <%= for mondays_schedule <- List.first(Enum.map(@friday_schedule, fn monday_schedule -> monday_schedule.communities end))   do %>
+      <ul class="block">
+          <li><%= mondays_schedule.name %> </li> 
+      </ul>
+    <% end %>
+  </div>  
+  
+  <div  class="border p-2 mb-4">
+    <p class="font-bold">Saturday: </p>
+    <.button>
+      <.link href={~p"/schedules/#{List.first(Enum.map(@saturday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
+        Edit
+      </.link>
+    </.button>
+
+    <%= for mondays_schedule <- List.first(Enum.map(@saturday_schedule, fn monday_schedule -> monday_schedule.communities end) )     do %>
+      <ul class="block">
+          <li><%= mondays_schedule.name %> </li> 
+      </ul>
+    <% end %>
+  </div>  
+
+<.modal
+ :if={@live_action in [:edit_schedule]}
+ id="edit-waste"
+ show
+ on_cancel={JS.navigate(~p"/schedules")}
+>
+  <.live_component 
+   module={EcoServiceWeb.EcoServiceLive.EditWasteComponent}
+   id={:edit_waste}
+   live_action={@live_action}
+   page_title={@page_title}
+   schedule_id={@schedule_id}
+   navigate={(~p"/schedules")}
+  
+  />
+</.modal>

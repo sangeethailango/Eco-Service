@@ -2,12 +2,16 @@ defmodule EcoService.EcoService.Community do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias EcoService.EcoService.Schedule
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
   schema "communities" do
     field :location_area_zone, :string
     field :name, :string
+
+    belongs_to :schedule, Schedule
 
     timestamps()
   end
