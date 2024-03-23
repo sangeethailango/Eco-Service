@@ -18,6 +18,11 @@ defmodule EcoService.EcoServiceContext do
     |> Repo.all()
   end
 
+  def fetch_all_community_names() do
+    fetch_all_communities()
+    |> Enum.map(fn community -> community.name end)
+  end
+
   def delete_waste(community_id) do
     Waste
     |> where(community_id: ^community_id)
@@ -179,6 +184,13 @@ defmodule EcoService.EcoServiceContext do
   def saturday_schedules() do
     get_all_schedules()
     |> Enum.map(fn schedule -> if schedule.day_of_week == "Saturday", do: schedule end)
-    |> Enum.reject(fn schedule-> schedule == nil end)  end
+    |> Enum.reject(fn schedule-> schedule == nil end)
+  end
 
+  def add_schedule_id_to_community(%Community{} = community, params) do
+    params = %{"schedule_id" =>  params}
+    community
+     |> Community.update_community_changeset(params)
+     |> Repo.update()
+   end
 end
