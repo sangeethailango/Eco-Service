@@ -1,11 +1,14 @@
-  <div  class="border p-2 mb-4">
-    <p class="font-bold">Monday: </p>
-    <.button>
-      <.link href={~p"/schedules/#{List.first(Enum.map(@monday_schedule, fn schedule -> schedule.id end))}/edit_schedule"}>
-        Edit
-      </.link>
-    </.button>
+  <h1 class="font-bold text-2xl text-center pb-10">Schedules</h1>
 
+  <div class="border p-2 mb-4">
+   <div class="flex flex-cols justify-between pb-4 pb-4"> 
+      <p class="font-bold inline text-2xl">Monday </p>
+      <.button>
+        <.link href={~p"/schedules/#{List.first(Enum.map(@monday_schedule, fn schedule -> schedule.id end))}/edit_schedule"}>
+          Edit
+        </.link>
+      </.button>
+   </div>
     <%= for mondays_schedule <- List.first(Enum.map(@monday_schedule, fn monday_schedule -> monday_schedule.communities end)) do %>
       <ul class="block">
           <li><%= mondays_schedule.name %> </li> 
@@ -14,13 +17,14 @@
   </div>
 
   <div  class="border p-2 mb-4">
-    <p class="font-bold">Tuesday: </p>
-    <.button>
-      <.link href={~p"/schedules/#{List.first(Enum.map(@tuesday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
-        Edit
-      </.link>
-    </.button>
-
+   <div class="flex flex-cols justify-between pb-4"> 
+      <p class="font-bold text-2xl" >Tuesday </p>
+      <.button>
+        <.link href={~p"/schedules/#{List.first(Enum.map(@tuesday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
+          Edit
+        </.link>
+      </.button>
+   </div>
     <%= for mondays_schedule <- List.first(Enum.map(@tuesday_schedule, fn monday_schedule -> monday_schedule.communities end)) do %>
       <ul class="block">
           <li><%= mondays_schedule.name %> </li> 
@@ -30,12 +34,14 @@
   </div>
   
   <div  class="border p-2 mb-4">
-    <p class="font-bold">Wednesday: </p>
-    <.button>
-      <.link href={~p"/schedules/#{List.first(Enum.map(@wednesday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
-        Edit
-      </.link>
-    </.button>
+   <div class="flex flex-cols justify-between pb-4"> 
+      <p class="font-bold text-2xl" >Wednesday </p>
+      <.button>
+        <.link href={~p"/schedules/#{List.first(Enum.map(@wednesday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
+          Edit
+        </.link>
+      </.button>
+   </div>
 
     <%= for mondays_schedule <- List.first(Enum.map(@wednesday_schedule, fn monday_schedule -> monday_schedule.communities end))  do %>
       <ul class="block">
@@ -45,12 +51,14 @@
   </div>  
   
   <div  class="border p-2 mb-4">
-    <p class="font-bold">Thursday: </p>
-    <.button>
-      <.link href={~p"/schedules/#{List.first(Enum.map(@thursday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
-        Edit
-      </.link>
-    </.button>
+   <div class="flex flex-cols justify-between pb-4"> 
+      <p class="font-bold text-2xl" >Thursday </p>
+      <.button>
+        <.link href={~p"/schedules/#{List.first(Enum.map(@thursday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
+          Edit
+        </.link>
+      </.button>
+   </div>
 
     <%= for mondays_schedule <- List.first(Enum.map(@thursday_schedule, fn monday_schedule -> monday_schedule.communities end))  do %>
       <ul class="block">
@@ -60,12 +68,14 @@
   </div>  
   
   <div  class="border p-2 mb-4"> 
-    <p class="font-bold">Friday: </p>
-    <.button>
-      <.link href={~p"/schedules/#{List.first(Enum.map(@friday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
-        Edit
-      </.link>
-    </.button>
+   <div class="flex flex-cols justify-between pb-4"> 
+      <p class="font-bold text-2xl" >Friday </p>
+      <.button>
+        <.link href={~p"/schedules/#{List.first(Enum.map(@friday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
+          Edit
+        </.link>
+      </.button>
+   </div>   
 
     <%= for mondays_schedule <- List.first(Enum.map(@friday_schedule, fn monday_schedule -> monday_schedule.communities end))   do %>
       <ul class="block">
@@ -75,12 +85,14 @@
   </div>  
   
   <div  class="border p-2 mb-4">
-    <p class="font-bold">Saturday: </p>
-    <.button>
-      <.link href={~p"/schedules/#{List.first(Enum.map(@saturday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
-        Edit
-      </.link>
-    </.button>
+   <div class="flex flex-cols justify-between pb-4"> 
+      <p class="font-bold text-2xl" >Saturday </p>
+      <.button>
+        <.link href={~p"/schedules/#{List.first(Enum.map(@saturday_schedule, fn schedule -> schedule.id end)) }/edit_schedule"}>
+          Edit
+        </.link>
+      </.button>
+   </div>   
 
     <%= for mondays_schedule <- List.first(Enum.map(@saturday_schedule, fn monday_schedule -> monday_schedule.communities end) )     do %>
       <ul class="block">

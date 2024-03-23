@@ -6,7 +6,9 @@ defmodule EcoServiceWeb.EcoServiceLive.EditCommunityComponent do
   def render(assigns) do
     ~H"""
       <div>
+        <h1 class="text-center font-bold  text-2xl">Edit Community</h1>
         <.simple_form :let={form} for={%{}} phx-target={@myself} phx-submit="update-community">
+
           <.input field={form[:name]} label="Community Name" value={@community.name}/>
           <.input field={form[:location_area_zone]} label="Location" value={@community.location_area_zone}/>
           <.button>Save</.button>
