@@ -1,7 +1,7 @@
   <div  class="border p-2 mb-4">
     <p class="font-bold">Monday: </p>
     <.button>
-      <.link href={~p"/schedules/#{List.first(Enum.map(@monday_schedule, fn schedule -> schedule.id end) )}/edit_schedule"}>
+      <.link href={~p"/schedules/#{List.first(Enum.map(@monday_schedule, fn schedule -> schedule.id end))}/edit_schedule"}>
         Edit
       </.link>
     </.button>

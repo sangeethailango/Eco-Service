@@ -10,9 +10,15 @@ defmodule EcoServiceWeb.EcoServiceLive.EditWasteComponent do
           <h2 class="font-bold">List of communities</h2>
           <%= for community <- @communities do %>
               <p> <%= community.name %></p>
-          <% end %>
 
-          <.button phx-target={@myself} phx-click="add-community">Add Community</.button>
+              <.button phx-target={@myself} phx-click="remove_community" phx-value-id={community.id}>
+                  Delete Community
+              </.button>
+          <% end %>
+          <div class="pt-4">
+            <.button phx-target={@myself} phx-click="add-community">Add Community</.button>
+          </div>
+
           <%= if @add_community == true do %>
             <.simple_form :let={form} for={%{}} phx-target={@myself} phx-submit="save_community">
               <.input
@@ -58,7 +64,7 @@ defmodule EcoServiceWeb.EcoServiceLive.EditWasteComponent do
 
   def handle_event("save_community", params, socket) do
     community = EcoServiceContext.get_community_by_id(params["community_id"])
-    update_schedule = EcoServiceContext.add_schedule_id_to_community(community, socket.assigns.schedule_id)
+    update_schedule = EcoServiceContext.update_schedule_id_in_community(community, socket.assigns.schedule_id)
 
     case update_schedule do
     {:ok, _} ->
@@ -68,6 +74,34 @@ defmodule EcoServiceWeb.EcoServiceLive.EditWasteComponent do
       |> push_redirect(to: ~p"/schedules")
       |> put_flash(:info, "Successfully Added Community")
       }
+    {:error, _} ->
+      {:noreply,
+      socket
+      |> push_redirect(to: ~p"/schedules")
+      |> put_flash(:error, "Couldn't Update Community")
+     }
     end
+  end
+
+  def handle_event("remove_community", params, socket) do
+    community = EcoServiceContext.get_community_by_id(params["id"])
+
+    update_schedule = EcoServiceContext.update_schedule_id_in_community(community,  "")
+
+    case update_schedule do
+      {:ok, _} ->
+
+        {:noreply,
+        socket
+        |> push_redirect(to: ~p"/schedules")
+        |> put_flash(:info, "Successfully Updated Community")
+        }
+      {:error, _} ->
+        {:noreply,
+        socket
+        |> push_redirect(to: ~p"/schedules")
+        |> put_flash(:error, "Couldn't Update Community")
+       }
+      end
   end
 end

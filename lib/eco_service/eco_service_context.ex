@@ -187,7 +187,7 @@ defmodule EcoService.EcoServiceContext do
     |> Enum.reject(fn schedule-> schedule == nil end)
   end
 
-  def add_schedule_id_to_community(%Community{} = community, params) do
+  def update_schedule_id_in_community(%Community{} = community, params) do
     params = %{"schedule_id" =>  params}
     community
      |> Community.update_community_changeset(params)

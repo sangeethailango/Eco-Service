@@ -26,6 +26,5 @@ defmodule EcoService.EcoService.Community do
   def update_community_changeset(community, attrs) do
     community
     |> cast(attrs, [:schedule_id])
-    |> validate_required([:schedule_id])
   end
 end
