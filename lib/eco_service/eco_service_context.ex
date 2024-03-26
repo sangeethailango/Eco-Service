@@ -192,5 +192,19 @@ defmodule EcoService.EcoServiceContext do
     community
      |> Community.update_community_changeset(params)
      |> Repo.update()
-   end
+  end
+
+  #  Date formation: From dd-mm-yy to yy-mm-dd and adding 20 before year(for example adding 20 before year 16, 17.).
+  def convert_to_ecto_date(date) do
+   [dd, mm, yyyy] = String.split(date, "/")
+   #  Adding 20 for a year.
+    date = "#{dd}-#{mm}-20#{yyyy}"
+    [dd, mm, yyyy] = String.split(date, "-")
+   # converting from "dd-mm-yyyy" into ~D[yyyy-mm-dd] format
+    Date.from_iso8601!("#{yyyy}-#{mm}-#{dd}")
+  end
+
+  def convert_to_integer(string) do
+    if string != "", do: String.to_integer(string), else: nil
+  end
 end
