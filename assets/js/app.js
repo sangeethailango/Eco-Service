@@ -36,14 +36,14 @@ hooks.AllWaste =  {
       data: {
               // random data to validate chart generation
               labels: ['Glass Bags', 'Mixed Bags', 'Paper Bags', 'Plastic Bags', 'Sanitory Bags', 'Seg LF bags'],
-                  datasets: [{label: "Quantity Of Bags", data: this.dataset()}]
+                  datasets: [{label: "Quantity of Bags", data: this.dataset()}]
             },
       options: {
         scales: {
           y: {
             title: {
               display: true,
-              text: 'No Of Bags',
+              text: 'No of Bags',
               font: {
                 size: 16
               },
@@ -54,7 +54,7 @@ hooks.AllWaste =  {
           x: {
             title: {
               display: true,
-              text: 'Categories Of Wastes',
+              text: 'Categories of Wastes',
               font: {
                 size: 16
               },
@@ -78,14 +78,14 @@ hooks.TopFiveWaste =  {
       data: {
           // random data to validate chart generation
           labels: JSON.parse(this.el.dataset.top_5_community_produce_waste  ),
-              datasets: [{label: "Quantity Of Bags", data: this.dataset()}]
+              datasets: [{label: "Quantity of Bags", data: this.dataset()}]
             },
       options: {
         scales: {
           y: {
             title: {
               display: true,
-              text: 'No Of Bags',
+              text: 'No of Bags',
               font: {
                 size: 16
               },
@@ -134,7 +134,7 @@ hooks.TopFiveWasteCategoryWise =  {
           y: {
             title: {
               display: true,
-              text: 'No Of Bags',
+              text: 'No of Bags',
               font: {
                 size: 16
               },
@@ -177,7 +177,7 @@ hooks.WasteOfACommunity =  {
           y: {
             title: {
               display: true,
-              text: 'No Of Bags',
+              text: 'No of Bags',
               font: {
                 size: 16
               },
@@ -188,7 +188,7 @@ hooks.WasteOfACommunity =  {
           x: {
             title: {
               display: true,
-              text: 'Categories Of Wastes',
+              text: 'Categories of Wastes',
               font: {
                 size: 16
               },
