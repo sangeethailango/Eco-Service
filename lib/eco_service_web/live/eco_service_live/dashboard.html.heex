@@ -1,25 +1,23 @@
-<h1 class="font-bold text-2xl text-center pb-10">Dashboard</h1>
-
 <div class="pb-6">
-  <h1 class="text-center font-bold  text-lg pb-10">Last one month data</h1> 
+  <h1 class="text-center font-bold  text-2xl pb-10">Last one month data</h1> 
   <canvas id="my-chart" phx-hook="AllWaste" data-waste_bags_of_all_communities={@waste_bags_of_all_communities}></canvas>
 </div>
 
 <.simple_form for={%{}} :let={form} phx-change="type_of_chart_change">
-  <h1 class="text-center font-bold  text-lg pb-10"> Type of chart </h1> 
-    <.input label="Total Waste Of Communities" field={form[:type_of_chart]} type="radio" value="total_waste"/>
-    <.input label="Categories Of Waste" field={form[:type_of_chart]} type="radio" value= "category_of_waste"/>
+  <h1 class="text-center text-2xl font-bold pb-10"> Select the type of graph you want to see </h1> 
+    <.modified_input label="Total Waste Of Communities" field={form[:type_of_chart]} type="radio" value="total_waste"/>
+    <.modified_input label="Categories Of Waste" field={form[:type_of_chart]} type="radio" value= "category_of_waste"/>
 
   <%= if @type_of_chart == "Total waste" do %>
-
     <div class="pt-6">
-      <h1 class="text-center font-bold pb-10 text-lg">Total waste of top 5 communities</h1> 
+      <h1 class="text-center font-bold pb-10 text-2xl">Total waste of top 5 communities</h1> 
       <canvas id="total-waste" phx-hook="TopFiveWaste" data-highest_count_of_waste_produced_by_communities={@highest_count_of_waste_produced_by_communities} data-top_5_community_produce_waste={@top_5_community_produce_waste}></canvas>
     </div>
   <% else %>
     <div class="pt-6">
-      <h1 class="text-center font-bold pb-10 text-lg">Categories of waste for top 5 communities</h1> 
+      <h1 class="text-center font-bold pb-10 text-2xl">Categories of waste for top 5 communities</h1> 
       <canvas id="category-wise-total-waste" phx-hook="TopFiveWasteCategoryWise" data-top_5_community_produce_waste={@top_5_community_produce_waste} data-top_communities_glass_bags={@top_communities_glass_bags} data-top_communities_mixed_bags={@top_communities_mixed_bags} data-top_communities_paper_bags={@top_communities_paper_bags} data-top_communities_plastic_bags={@top_communities_plastic_bags} data-top_communities_sanitory_bags={@top_communities_sanitory_bags} data-top_communities_seg_lf_bags={@top_communities_seg_lf_bags}></canvas>
     </div>
   <% end %>
 </.simple_form>
+

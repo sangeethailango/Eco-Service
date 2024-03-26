@@ -5,6 +5,8 @@ defmodule EcoServiceWeb.EcoServiceLive.AddWasteComponent do
   def render(assigns) do
     ~H"""
       <div>
+      <h1 class="text-center font-bold text-2xl">Add Community</h1>
+
         <.simple_form :let={form} for={%{}} phx-target={@myself} phx-submit="save">
           <.input field={form[:date]} label="Date" type="date"/>
           <.input field={form[:kg_of_glass]} label="KG of Glass"/>

@@ -4,21 +4,23 @@ defmodule EcoServiceWeb.EcoServiceLive.EditWasteComponent do
   alias EcoService.EcoServiceContext
   def render(assigns) do
     ~H"""
-      <div >
-          <span class="font-bold">Day: </span><h1 class="inline-block pl-4"><%= @day %></h1>
+      <div>
+          <h1 class="text-center font-bold text-2xl">Edit Schedule</h1>
+          <p class="inline-block pt-4 text-xl "><%= @day %></p>
 
-          <h2 class="font-bold">List of communities</h2>
-          <%= for community <- @communities do %>
-              <p> <%= community.name %></p>
+          <.table id="community" rows={@communities}>
+             <:col :let={community} label="Communty Name"> <%= community.name %></:col>
 
-              <.button phx-target={@myself} phx-click="remove_community" phx-value-id={community.id}>
-                  Delete Community
-              </.button>
-          <% end %>
-          <div class="pt-4">
-            <.button phx-target={@myself} phx-click="add-community">Add Community</.button>
+             <:col :let={community} label="" >
+                <.link phx-target={@myself} phx-click="remove_community" phx-value-id={community.id}>
+                  <Heroicons.trash class="w-6 h-6" />
+                </.link>
+             </:col>
+          </.table>
+
+          <div class="pt-6">
+             <.button phx-target={@myself} phx-click="add-community">Add Community</.button>
           </div>
-
           <%= if @add_community == true do %>
             <.simple_form :let={form} for={%{}} phx-target={@myself} phx-submit="save_community">
               <.input
@@ -84,6 +86,7 @@ defmodule EcoServiceWeb.EcoServiceLive.EditWasteComponent do
   end
 
   def handle_event("remove_community", params, socket) do
+    IO.inspect(socket.assigns.communities, label: "Commnities")
     community = EcoServiceContext.get_community_by_id(params["id"])
 
     update_schedule = EcoServiceContext.update_schedule_id_in_community(community,  "")
@@ -93,8 +96,7 @@ defmodule EcoServiceWeb.EcoServiceLive.EditWasteComponent do
 
         {:noreply,
         socket
-        |> push_redirect(to: ~p"/schedules")
-        |> put_flash(:info, "Successfully Updated Community")
+        |> assign(:communities, update_schedule)
         }
       {:error, _} ->
         {:noreply,
