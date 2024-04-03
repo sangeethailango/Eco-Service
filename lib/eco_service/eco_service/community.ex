@@ -10,6 +10,9 @@ defmodule EcoService.EcoService.Community do
   schema "communities" do
     field :location_area_zone, :string
     field :name, :string
+    field :lat, :decimal
+    field :long, :decimal
+    field :gate_photo_file_name, :string
 
     belongs_to :schedule, Schedule
 
@@ -19,7 +22,7 @@ defmodule EcoService.EcoService.Community do
   @doc false
   def changeset(community, attrs) do
     community
-    |> cast(attrs, [:name, :location_area_zone])
+    |> cast(attrs, [:name, :location_area_zone, :lat, :long, :gate_photo_file_name])
     |> validate_required([:name, :location_area_zone])
   end
 
