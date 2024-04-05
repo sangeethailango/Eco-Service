@@ -10,18 +10,18 @@ defmodule EcoService.EcoService.Waste do
   schema "wastes" do
     field :comments, :string
     field :date, :date
-    field :glass_bags, :integer
+    field :glass_bags, :decimal
     field :kg_of_glass, :decimal
     field :kg_of_mixed, :decimal
     field :kg_of_paper, :decimal
     field :kg_of_plastic, :decimal
     field :kg_of_sanitory, :decimal
     field :kg_of_seg_lf, :decimal
-    field :mixed_bags, :integer
-    field :paper_bags, :integer
-    field :plastic_bags, :integer
-    field :sanitory_bags, :integer
-    field :seg_lf_bags, :integer
+    field :mixed_bags, :decimal
+    field :paper_bags, :decimal
+    field :plastic_bags, :decimal
+    field :sanitory_bags, :decimal
+    field :seg_lf_bags, :decimal
 
     belongs_to :community, Community
 

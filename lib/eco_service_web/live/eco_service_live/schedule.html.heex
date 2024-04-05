@@ -1,13 +1,13 @@
   <h1 class="font-bold text-2xl text-center pb-10">Waste pick-up schedules</h1>
     <.simple_form :let={form} for={%{}} phx-change="date-change">
-      <.input field={form[:date]} label="Select Date" type="date" />
+      <.short_input field={form[:date]} label="Select Date: " type="date" value = {@date} />
     </.simple_form>
     
+    <%= if !is_nil(@schedules_for_a_date) do %>   
     <p class="font-bold text-2xl pt-10"><%= @string_date  %></p>  
-    <%= if is_nil(@schedules_for_a_date) == false do %>   
       <div class="border p-4 mt-10">
         <div class="flex flex-cols justify-between pb-4 pb-4"> 
-            <p class="font-bold inline text-xl"> <%= @date %> </p>
+            <p class="font-bold inline text-xl"> List of communities </p>
             <.button>
               <.link href={~p"/schedules/#{List.first(Enum.map(@schedules_for_a_date, fn schedule_for_a_date -> schedule_for_a_date.id end))}/edit_schedule"}>
                 Edit
@@ -26,7 +26,7 @@
  :if={@live_action in [:edit_schedule]}
  id="edit-waste"
  show
- on_cancel={JS.navigate(~p"/schedules")}
+ on_cancel={JS.navigate(~p"/schedules/#{@schedule_id}")}
 >
   <.live_component 
    module={EcoServiceWeb.EcoServiceLive.EditWasteComponent}
@@ -34,7 +34,7 @@
    live_action={@live_action}
    page_title={@page_title}
    schedule_id={@schedule_id}
-   navigate={(~p"/schedules")}
+   navigate={(~p"/schedules/#{@schedule_id}")}
   
   />
 </.modal>

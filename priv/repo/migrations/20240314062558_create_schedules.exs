@@ -4,7 +4,7 @@ defmodule EcoService.Repo.Migrations.CreateSchedules do
   def change do
     create table(:schedules, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :date, :string
+      add :date, :date
 
       timestamps()
     end

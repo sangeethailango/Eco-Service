@@ -1,7 +1,7 @@
 <h1 class="font-bold text-2xl text-center pb-10">List of communities</h1>
 
 <.simple_form :let={form} for={%{}} as={:community} phx-submit="search_communities">
-  <.input field={form[:name]} label="Community name" type="text" />
+  <.short_input field={form[:name]} label="Community name" type="text" />
   <.button value="search">Search</.button>
 </.simple_form>
 

@@ -8,15 +8,20 @@ defmodule EcoServiceWeb.EcoServiceLive.AddWasteComponent do
       <h1 class="text-center font-bold text-2xl">Add Community</h1>
 
         <.simple_form :let={form} for={%{}} phx-target={@myself} phx-submit="save">
-          <.input field={form[:date]} label="Date" type="date"/>
-          <.input field={form[:mixed_bags]} label="No. of Mixed Bags"/>
-          <.input field={form[:paper_bags]} label="No. of Paper Bags"/>
-          <.input field={form[:plastic_bags]} label="No. of Plastic Bags"/>
-          <.input field={form[:sanitory_bags]} label="No. of Sanitory Bags"/>
-          <.input field={form[:seg_lf_bags]} label="No. of Seg LF bags"/>
-          <.input field={form[:glass_bags]} label="No. of Glass Bags"/>
-          <.input field={form[:comments]} label="Comments"/>
-
+          <div class="flex flex-cols gap-20">
+              <div>
+                <.input field={form[:date]} label="Date" type="date"/>
+                <.input field={form[:mixed_bags]} label="No. of Mixed Bags"/>
+                <.input field={form[:paper_bags]} label="No. of Paper Bags"/>
+                <.input field={form[:plastic_bags]} label="No. of Plastic Bags"/>
+              </div>
+              <div>
+                <.input field={form[:sanitory_bags]} label="No. of Sanitory Bags"/>
+                <.input field={form[:seg_lf_bags]} label="No. of Seg LF bags"/>
+                <.input field={form[:glass_bags]} label="No. of Glass Bags"/>
+                <.input field={form[:comments]} label="Comments"/>
+              </div>
+          </div>
           <.button>Save</.button>
         </.simple_form>
       </div>

@@ -90,44 +90,49 @@ defmodule EcoService.EcoServiceContext do
   end
 
   def total_glass_bags(wastes) do
-    glass_bags = Enum.map(wastes, fn waste -> waste.glass_bags end)
-    Enum.sum(Enum.reject(glass_bags, fn bag -> bag == nil end))
+    Enum.map(wastes, fn waste -> waste.glass_bags end)
+    |> Enum.reject(fn bag -> is_nil(bag) end)
+    |> Enum.reduce(0, &(Decimal.add(&1, &2)))
   end
 
   def total_mixed_bags(wastes) do
-    mixed_bags = Enum.map(wastes, fn waste -> waste.mixed_bags end)
-    Enum.sum(Enum.reject(mixed_bags, fn bag -> bag == nil end))
+    Enum.map(wastes, fn waste -> waste.mixed_bags end)
+    |> Enum.reject(fn bag -> bag == nil end)
+    |> Enum.reduce(0, &(Decimal.add(&1, &2)))
   end
 
   def total_paper_bags(wastes) do
-    paper_bags = Enum.map(wastes, fn waste -> waste.paper_bags end)
-    Enum.sum(Enum.reject(paper_bags, fn bag -> bag == nil end))
+    Enum.map(wastes, fn waste -> waste.paper_bags end)
+    |> Enum.reject(fn bag -> bag == nil end)
+    |> Enum.reduce(0, &(Decimal.add(&1, &2)))
   end
 
   def total_plastic_bags(wastes) do
-    plastic_bags = Enum.map(wastes, fn waste -> waste.plastic_bags end)
-    Enum.sum(Enum.reject(plastic_bags, fn bag -> bag == nil end))
+    Enum.map(wastes, fn waste -> waste.plastic_bags end)
+    |> Enum.reject(fn bag -> bag == nil end)
+    |> Enum.reduce(0, &(Decimal.add(&1, &2)))
   end
 
   def total_sanitory_bags(wastes) do
-    sanitory_bags = Enum.map(wastes, fn waste -> waste.sanitory_bags end)
-    Enum.sum(Enum.reject(sanitory_bags, fn bag -> bag == nil end))
+    Enum.map(wastes, fn waste -> waste.sanitory_bags end)
+    |> Enum.reject(fn bag -> bag == nil end)
+    |> Enum.reduce(0, &(Decimal.add(&1, &2)))
   end
 
   def total_seg_lf_bags(wastes) do
-    seg_lf_bags = Enum.map(wastes, fn waste -> waste.seg_lf_bags end)
-    Enum.sum(Enum.reject(seg_lf_bags, fn bag -> bag == nil end))
+    Enum.map(wastes, fn waste -> waste.seg_lf_bags end)
+    |> Enum.reject(fn bag -> bag == nil end)
+    |> Enum.reduce(0, &(Decimal.add(&1, &2)))
   end
 
   def top5_comm_details() do
     all_wastes = get_all_waste()
-
     # calculate the sum of all wastes that is produced by a community
     sum_of_all_waste_with_community_id =
       Enum.map(all_wastes, fn waste ->
         %{
           community_id: waste.community.id,
-          waste:
+          wastes:
             [
               waste.glass_bags,
               waste.mixed_bags,
@@ -137,14 +142,30 @@ defmodule EcoService.EcoServiceContext do
               waste.seg_lf_bags
             ]
             |> Enum.reject(fn waste -> waste == nil end)
-            |> Enum.sum()
+            |> Enum.reduce(0, &(Decimal.add(&1, &2)))
         }
       end)
 
     # Sorting the communities by waste count and taking the top 5
     sum_of_all_waste_with_community_id
-    |> Enum.sort_by(& &1.waste, :desc)
+    |> Enum.sort_by(& &1.wastes, :desc)
     |> Enum.take(5)
+  end
+
+
+  def top_5_community_and_waste() do
+    top_5_community_details = top5_comm_details()
+
+    group_by_community =
+    Enum.group_by(top_5_community_details, fn detail -> detail.community_id end)
+
+    Enum.map(group_by_community,
+    fn({key, values}) ->
+       %{community_id: key,
+         waste:
+            Enum.map(values, fn value -> value.wastes end)
+            |> Enum.reduce(0, &(Decimal.add(&1, &2)))}
+    end)
   end
 
   # Schedules

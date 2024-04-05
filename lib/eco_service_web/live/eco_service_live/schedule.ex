@@ -2,13 +2,30 @@ defmodule EcoServiceWeb.EcoServiceLive.Schedule do
   use EcoServiceWeb, :live_view
 
   alias EcoService.EcoServiceContext
-  def mount(_params, _session, socket) do
-   {:ok,
+  def mount(params, _session, socket) do
+    if params["schedule_id"] == "nil"   do
+    {:ok,
     socket
     |> assign(:schedules_for_a_date, nil)
     |> assign(:date, nil)
     |> assign(:string_date, nil)
     }
+    else
+      schedules_for_a_date =
+      EcoServiceContext.get_schedule_by_id(params["schedule_id"])
+
+      date = Enum.map(schedules_for_a_date, fn schedule -> schedule.date end)
+      |> List.first()
+      |> Date.to_iso8601()
+
+    {:ok,
+      socket
+      |> assign(:schedules_for_a_date, schedules_for_a_date)
+      |> assign(:date, date)
+      |> assign(:string_date, nil)
+    }
+
+    end
   end
 
   def handle_event("date-change", params, socket) do
@@ -17,6 +34,7 @@ defmodule EcoServiceWeb.EcoServiceLive.Schedule do
      date = EcoServiceContext.format_string_date(params["date"])
 
      string_date = EcoServiceContext.convert_string_date_to_calender_iso_date(params["date"])
+
 
      if schedules_for_a_date ==  [] do
         {:noreply,
