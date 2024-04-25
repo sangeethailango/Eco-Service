@@ -85,9 +85,9 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityDetails do
   end
 
   def handle_event("open-maps", params, socket) do
-    community_name = params["community-name"] |> IO.inspect(label: "comm name")
-    lat = params["lat"] |> IO.inspect(label: "lat")
-    long = params["long"] |> IO.inspect(label: "long")
+    community_name = params["community-name"]
+    lat = params["lat"]
+    long = params["long"]
 
     url =
       "https://www.google.com/maps/search/?api=1&query=#{lat},#{long}&destination=#{community_name}"
