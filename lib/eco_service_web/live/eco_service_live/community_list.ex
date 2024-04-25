@@ -2,6 +2,7 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
   use EcoServiceWeb, :live_view
 
   alias EcoService.EcoServiceContext
+  alias EcoService.EcoService.Community
 
   def mount(_params, _session, socket) do
     pag_params = %{limit: 10, offset: 0}
@@ -90,6 +91,14 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
   def apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "List of Community")
+  end
+
+  def apply_action(socket, :new, _params) do
+    socket
+    |> assign(:page_title, "Add New Community")
+    |> assign(:community, %Community{})
+    |> assign(:community_id, "")
+
   end
 
   def apply_action(socket, :edit, params) do

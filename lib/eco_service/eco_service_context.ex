@@ -60,6 +60,13 @@ defmodule EcoService.EcoServiceContext do
     |> Repo.preload(:community)
   end
 
+  def insert_community(params) do
+    %Community{}
+    |> Community.changeset(params)
+    |> Repo.insert()
+  end
+
+
   def get_waste_by_community_id(community_id) do
     Waste
     |> where(community_id: ^community_id)
