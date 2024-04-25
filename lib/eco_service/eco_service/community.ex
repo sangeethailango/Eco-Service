@@ -13,6 +13,11 @@ defmodule EcoService.EcoService.Community do
     field :lat, :decimal
     field :long, :decimal
     field :gate_photo_file_name, :string
+    field :is_aurovillian, :boolean
+    field :contact_person_name, :string
+    field :contact_person_phone_number, :integer
+    field :contact_person_email, :string
+    field :fs_acc_num, :string
 
     belongs_to :schedule, Schedule
 
@@ -22,7 +27,7 @@ defmodule EcoService.EcoService.Community do
   @doc false
   def changeset(community, attrs) do
     community
-    |> cast(attrs, [:name, :location_area_zone, :lat, :long, :gate_photo_file_name])
+    |> cast(attrs, [:contact_person_name, :contact_person_phone_number, :contact_person_email, :fs_acc_num, :name, :location_area_zone, :lat, :long, :gate_photo_file_name])
     |> validate_required([:name, :location_area_zone])
   end
 

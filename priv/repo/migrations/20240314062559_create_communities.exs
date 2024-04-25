@@ -9,6 +9,11 @@ defmodule EcoService.Repo.Migrations.CreateCommunities do
       add :lat, :decimal
       add :long, :decimal
       add :gate_photo_file_name, :string
+      add :is_aurovillian, :boolean
+      add :contact_person_name, :string
+      add :contact_person_phone_number, :integer
+      add :contact_person_email, :string
+      add :fs_acc_num, :string
 
       add :schedule_id, references(:schedules, type: :binary_id, on_delete: :nothing)
 
