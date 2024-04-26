@@ -1,0 +1,33 @@
+<.header>
+  Listing Waste Costs
+  <:actions>
+    <.link patch={~p"/wastecosts/new"}>
+      <.button>New Waste Cost</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="wastecosts"
+  rows={@streams.wastecosts}
+>
+  <:col :let={{_id, waste_cost}} label="Date"><%=  EcoService.EcoServiceContext.format_date(NaiveDateTime.to_date(waste_cost.inserted_at)) %></:col>
+  <:col :let={{_id, waste_cost}} label="Cost of mix waste"><%= waste_cost.cost_of_mix_waste %></:col>
+  <:col :let={{_id, waste_cost}} label="Cost of paper waste"><%= waste_cost.cost_of_paper_waste %></:col>
+  <:col :let={{_id, waste_cost}} label="Cost of plastic waste"><%= waste_cost.cost_of_plastic_waste %></:col>
+  <:col :let={{_id, waste_cost}} label="Cost of sanitory waste"><%= waste_cost.cost_of_sanitory_waste %></:col>
+  <:col :let={{_id, waste_cost}} label="Cost of seg lf waste"><%= waste_cost.cost_of_seg_lf_waste %></:col>
+  <:col :let={{_id, waste_cost}} label="Cost of glass waste"><%= waste_cost.cost_of_glass_waste %></:col>
+
+</.table>
+
+<.modal :if={@live_action in [:new]} id="waste_cost-modal" show on_cancel={JS.patch(~p"/wastecosts")}>
+  <.live_component
+    module={EcoServiceWeb.WasteCostLive.FormComponent}
+    id={@waste_cost.id || :new}
+    title={@page_title}
+    action={@live_action}
+    waste_cost={@waste_cost}
+    patch={~p"/wastecosts"}
+  />
+</.modal>
