@@ -19,12 +19,12 @@ defmodule EcoServiceWeb.Router do
 
     live "/", EcoServiceLive.Dashboard
     live "/communities", EcoServiceLive.CommunityList, :index
+    live "/communities/new", EcoServiceLive.CommunityList, :new
     live "/communities/:id/edit", EcoServiceLive.CommunityList, :edit
     live "/communities/:id/community_details", EcoServiceLive.CommunityDetails, :community_details
     live "/communities/:id/add_waste", EcoServiceLive.CommunityDetails, :add_waste
     live "/schedules/:schedule_id", EcoServiceLive.Schedule, :index
     live "/schedules/:schedule_id/edit_schedule", EcoServiceLive.Schedule, :edit_schedule
-
     live "/wastecosts", WasteCostLive.Index, :index
     live "/wastecosts/new", WasteCostLive.Index, :new
     live "/wastecosts/:id", WasteCostLive.Show, :show

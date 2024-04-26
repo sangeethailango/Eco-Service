@@ -5,6 +5,15 @@
   <.button value="search">Search</.button>
 </.simple_form>
 
+<.header>
+  <:actions>
+    <.link patch={~p"/communities/new"}>
+      <.button>Add New Community</.button>
+    </.link>
+  </:actions>
+</.header>
+
+
 <.table id="community" rows={@communities}>
   <:col :let={community} label="Community Name">
     <.link href={~p"/communities/#{community.id}/community_details"}>
@@ -44,11 +53,11 @@
   <% end %>
 </div>
 
-<.modal :if={@live_action in [:edit]} id="Edit" show on_cancel={JS.navigate(~p"/communities")}>
+<.modal :if={@live_action in [:edit, :new]} id="Edit" show on_cancel={JS.navigate(~p"/communities")}>
   <.live_component
     module={EcoServiceWeb.EcoServiceLive.EditCommunityComponent}
-    id={:edit}
-    community_id={@community_id}
+    id={:edit }
+    community_id={@community_id }
     title={@page_title}
     live_action={@live_action}
     navigate={~p"/communities"}
