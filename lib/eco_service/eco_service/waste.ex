@@ -22,6 +22,7 @@ defmodule EcoService.EcoService.Waste do
     field :plastic_bags, :decimal
     field :sanitory_bags, :decimal
     field :seg_lf_bags, :decimal
+    field :total_cost, :decimal
 
     belongs_to :community, Community
 
@@ -32,6 +33,7 @@ defmodule EcoService.EcoService.Waste do
   def changeset(waste, attrs) do
     waste
     |> cast(attrs, [
+      :total_cost,
       :date,
       :glass_bags,
       :mixed_bags,
