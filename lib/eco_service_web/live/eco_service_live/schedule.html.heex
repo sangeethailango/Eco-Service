@@ -16,7 +16,7 @@
         </.link>
       </.button>
     </div>
-    <%= for schedule_for_a_date <- List.first(Enum.map(@schedules_for_a_date, fn schedule_for_a_date -> schedule_for_a_date.communities end)) do %>
+    <%= for schedule_for_a_date <- List.first(Enum.map(@schedules_for_a_date, fn schedule_for_a_date -> Enum.sort_by(schedule_for_a_date.communities, & &1.name) end)) do %>
       <ul class="block">
         <li><%= schedule_for_a_date.name %></li>
       </ul>

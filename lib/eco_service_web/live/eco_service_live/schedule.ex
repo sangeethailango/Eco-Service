@@ -27,7 +27,8 @@ defmodule EcoServiceWeb.EcoServiceLive.Schedule do
   end
 
   def handle_event("date-change", params, socket) do
-    schedules_for_a_date = EcoServiceContext.get_schedules_for_date(params["date"])
+    schedules_for_a_date =
+    EcoServiceContext.get_schedules_for_date(params["date"])
 
     date = EcoServiceContext.format_string_date(params["date"])
 

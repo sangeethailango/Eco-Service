@@ -39,7 +39,6 @@ defmodule EcoServiceWeb.EcoServiceLive.EditWasteComponent do
 
   def update(assigns, socket) do
     schedules = EcoServiceContext.get_schedule_by_id(assigns.schedule_id)
-    IO.inspect(schedules, label: "Schedules")
     communities = Enum.map(schedules, fn schedule -> schedule.communities end)
 
     date = Enum.map(schedules, fn schedule -> schedule.date end)
@@ -69,8 +68,6 @@ defmodule EcoServiceWeb.EcoServiceLive.EditWasteComponent do
 
     update_schedule =
       EcoServiceContext.update_schedule_id_in_community(community, socket.assigns.schedule_id)
-
-    IO.inspect(update_schedule, label: "Update Schedule in .ex")
 
     case update_schedule do
       {:ok, _} ->

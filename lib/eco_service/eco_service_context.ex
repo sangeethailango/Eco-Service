@@ -180,8 +180,9 @@ defmodule EcoService.EcoServiceContext do
         where: d.date == ^date
 
     query
-    |> Repo.all()
-    |> Repo.preload(:communities)
+      |> Repo.all()
+      |> Repo.preload(:communities)
+
   end
 
   def get_schedule_by_id(schedule_id) do
