@@ -19,6 +19,8 @@ defmodule EcoService.Repo.Migrations.CreateWastes do
       add :kg_of_sanitory, :decimal
       add :comments, :string
       add :total_cost, :decimal
+      add :misc_bag, :decimal
+      add :kg_misc, :decimal
       add :community_id, references(:communities, type: :binary_id, on_delete: :nothing)
 
       timestamps()

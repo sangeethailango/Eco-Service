@@ -23,6 +23,8 @@ defmodule EcoService.EcoService.Waste do
     field :sanitory_bags, :decimal
     field :seg_lf_bags, :decimal
     field :total_cost, :decimal
+    field :kg_misc, :decimal
+    field :misc_bag, :decimal
 
     belongs_to :community, Community
 
@@ -84,7 +86,9 @@ defmodule EcoService.EcoService.Waste do
       :kg_of_paper,
       :kg_of_seg_lf,
       :kg_of_sanitory,
-      :comments
+      :comments,
+      :kg_misc,
+      :misc_bag
     ])
     |> validate_required([:date])
   end
