@@ -95,7 +95,7 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
 
   def apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "Add New Community")
+    |> assign(:page_title, "Add New Community Details")
     |> assign(:community, %Community{})
     |> assign(:community_id, "")
 
@@ -103,7 +103,7 @@ defmodule EcoServiceWeb.EcoServiceLive.CommunityList do
 
   def apply_action(socket, :edit, params) do
     socket
-    |> assign(:page_title, "Edit Community")
+    |> assign(:page_title, "Edit Community Details")
     |> assign(:community_id, params["id"])
   end
 end

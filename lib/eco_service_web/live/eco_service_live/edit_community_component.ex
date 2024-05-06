@@ -6,7 +6,7 @@ defmodule EcoServiceWeb.EcoServiceLive.EditCommunityComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <h1 class="text-center font-bold  text-2xl">Edit Community</h1>
+      <h1 class="text-center font-bold  text-2xl"> <%= @title %> </h1>
       <.simple_form :let={form} for={%{}} phx-target={@myself} phx-submit="update-community">
         <.input
           field={form[:name]}
@@ -15,7 +15,7 @@ defmodule EcoServiceWeb.EcoServiceLive.EditCommunityComponent do
           required/>
         <.input
           field={form[:location_area_zone]}
-          label="Location"
+          label="Location Area Zone"
           value={if !is_nil(@community), do: @community.location_area_zone }
           required
         />
@@ -56,6 +56,7 @@ defmodule EcoServiceWeb.EcoServiceLive.EditCommunityComponent do
     {:ok,
      socket
      |> assign(:community, community)
+     |> assign(:title, assigns.title)
     }
   end
 
